@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+  haproxy:
+    image: haproxy
+    ports:
+      - "80:80"
+    container_name: "haproxy"
+    depends_on:
+      - apache1
+      - apache2
+    volumes:
+      - ./haproxy/conffile:/usr/local/etc/haproxy/haproxy.cfg:ro
+  apache1:
+    build: "./apache/"
+    depends_on:
+      - php
+      - redis
+    ports:
+      - "8081:80"
+    container_name: "apache1"
+    volumes:
+      - ./public_html/:/var/www/html/
+      - ./apache/logs/:/var/log/apache2/
+  apache2:
+    build: "./apache/"
+    depends_on:
+      - php
+      - redis
+    ports:
+      - "8082:80"
+    container_name: "apache2"
+    volumes:
+      - ./public_html/:/var/www/html/
+      - ./apache/logs:/var/log/apache2/
+  php:
+    build: "./php/"
+    volumes:
+      - ./public_html/:/var/www/html/
+    depends_on:
+      - redis
+  jenkins:
+    build: ./jenkins-master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins-master/data:/var/jenkins_home/
+      - ./jenkins-master/curator.yml:/etc/curator/curator.yml
+      - ./jenkins-master/delete_indices.yml:/etc/curator/delete_indices.yml
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    ports:
+      - "9200:9200"
+    container_name: "elasticsearch"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+      - logstash
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.4.2
+    volumes:
+      - ./apache/logs:/var/log/apache2/
+      - ./logstash/conffile:/usr/share/logstash/pipeline/logstash.conf

@@ -1,0 +1,10 @@
+Started by user [8mha:////4CTTsqarmdKtpHesnKZf2m1qDD2wacBZKQlUBTq5fv2fAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9ovz8EgCKqjp8vwAAAA==[0madministrator
+Building in workspace /var/jenkins_home/workspace/elasticsearch
+[elasticsearch] $ /bin/sh -xe /tmp/jenkins5282034962473040331.sh
++ curator /etc/curator/delete_indices.yml --config /etc/curator/curator.yml
+2018-11-02 18:30:22,261 INFO      Preparing Action ID: 1, "delete_indices"
+2018-11-02 18:30:22,284 INFO      Trying Action ID: 1, "delete_indices": Delete indices older than 30 days (based on index name), for logstash- prefixed indices. Ignore the error if the filter does not result in an actionable list of indices (ignore_empty_list) and exit cleanly.
+2018-11-02 18:30:22,323 INFO      Skipping action "delete_indices" due to empty list: <class 'curator.exceptions.NoIndices'>
+2018-11-02 18:30:22,323 INFO      Action ID: 1, "delete_indices" completed.
+2018-11-02 18:30:22,323 INFO      Job completed.
+Finished: SUCCESS

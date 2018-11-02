@@ -1,0 +1,20 @@
+global
+        debug
+
+defaults
+		option forwardfor except 127.0.0.1
+        log global
+        mode    http
+        timeout connect 5000
+        timeout client 5000
+        timeout server 5000
+
+frontend main
+        bind *:80
+        default_backend app
+
+backend app
+        balance roundrobin
+        mode http
+        server srv1 apache1
+        server srv2 apache2
