@@ -24,9 +24,15 @@
     return $ip;
 }
 
-  $count = isset($_SESSION['count']) ? $_SESSION['count'] : 1;
-  $_SESSION['count'] = ++$count;
-
+  if(isset($_SESSION['count']))
+  {
+    $_SESSION['count']++;  
+  }
+  else
+  {
+    $_SESSION['count'] = 1;  
+  }
+  
   $data = array(
 	"User IP" => getUserIP(),
 	"Date" => date("Y-m-d")
