@@ -22,7 +22,7 @@
     }
 
     return $ip;
-}
+  }
 
   if(isset($_SESSION['count']))
   {
